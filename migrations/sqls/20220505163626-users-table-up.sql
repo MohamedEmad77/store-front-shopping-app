@@ -3,5 +3,6 @@ CREATE TABLE users (
     firstName VARCHAR,
     lastName VARCHAR,
     email VARCHAR,
-    password VARCHAR
+    password VARCHAR,
+    CONSTRAINT email_unique UNIQUE (email)
 );
