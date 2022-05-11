@@ -33,8 +33,8 @@ class ProductModel {
     async create(p) {
         try {
             const conn = await database_1.default.connect();
-            const sql = 'INSERT INTO products (name, price, category) VALUES($1, $2, $3) RETURNING *';
-            const result = await conn.query(sql, [p.name, p.price, p.category]);
+            const sql = 'INSERT INTO products (name, price) VALUES($1, $2) RETURNING *';
+            const result = await conn.query(sql, [p.name, p.price]);
             conn.release();
             const product = result.rows[0];
             return product;
