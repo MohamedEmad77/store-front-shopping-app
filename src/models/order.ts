@@ -1,12 +1,10 @@
 import Client from '../database';
 
-
 export type Order = {
   id?: number;
   user_id: number;
   status: string;
 };
-
 
 export class OrderModel {
   async index(): Promise<Order[]> {
@@ -71,11 +69,7 @@ export class OrderModel {
     }
   }
 
-  async addProduct(
-    quantity: number,
-    orderId: string,
-    productId: string
-  ) {
+  async addProduct(quantity: number, orderId: string, productId: string) {
     try {
       const sql =
         'INSERT INTO orders_products (order_id, product_id, quantity) VALUES ($1, $2, $3) RETURNING *';
@@ -105,9 +99,7 @@ export class OrderModel {
       conn.release();
       return result.rows[0];
     } catch (err) {
-      throw new Error(
-        `${err}`
-      );
+      throw new Error(`${err}`);
     }
   }
 }

@@ -40,3 +40,51 @@ These are the notes from a meeting with the frontend developer that describe wha
 - user_id
 - status of order (active or complete)
 
+
+
+RESTful routes : 
+----------------
+1- user Route :
+    
+    a- SHOW route: 'users/:id' [GET] [token required]
+    b- INDEX route: 'users/' [GET] [token required]
+    c- CREATE route: 'users/' [POST]
+    d- SIGNIN route: 'users/signin' [POST]
+  
+
+2- product Route :
+    
+    a- SHOW route: 'products/:id' [GET]
+    b- INDEX route: 'products/' [GET] 
+    c- CREATE route: 'products/' [POST] [token required]
+
+
+3- order Route :
+    
+    a- get order by user details route: 'orders/users/:id' [GET] [token required]
+    b- add product to order route: 'orders/:id/products' [POST] [token required]
+    b- INDEX route: 'orders/' [GET] [token required]
+    c- SHOW route: 'orders/:id' [GET] [token required]
+
+-------------------------------------------------------------------------------------------------------
+DATABASE Tables :
+------------------
+Table: users (id:primary key, firstname:varchar, lastname:varchar, email:varchar, password:varchar publisher_id:string[foreign key to publishers table])
+
+Table: products (id:primary key, name:varchar, price:number)
+
+Table: orders (id:primary key, status:varchar, user_id:string[foreign key to users table])
+
+Table: orders (id:primary key,  order_id:string[foreign key to orders table], product_id:string[foreign key to products table], quantity: number)
+
+----------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+

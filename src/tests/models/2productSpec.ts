@@ -1,10 +1,8 @@
-import {  Product, ProductModel  } from '../../models/product';
+import { Product, ProductModel } from '../../models/product';
 
-const model = new ProductModel()
+const model = new ProductModel();
 
-describe("Product Model tests", () => {
-
-
+describe('Product Model tests', () => {
   it('should have an index method', () => {
     expect(model.index).toBeDefined();
   });
@@ -18,66 +16,60 @@ describe("Product Model tests", () => {
   });
 
   it('create method should add a Product', async () => {
-    const p : Product = {
-        name : "test product 1",
-        price : 25,
-    }  
-    const result : any = await model.create(p);
+    const p: Product = {
+      name: 'test product 1',
+      price: 25,
+    };
+    const result: any = await model.create(p);
     expect(result).toEqual({
       id: 1,
-      name : "test product 1",
-      price : 25,
+      name: 'test product 1',
+      price: 25,
     });
-
-
-  });   
+  });
 
   it('create method should add another Product', async () => {
-    const p : Product = {
-        name : "test product 2",
-        price : 252,
-    }  
-    const result : any = await model.create(p);
+    const p: Product = {
+      name: 'test product 2',
+      price: 252,
+    };
+    const result: any = await model.create(p);
     expect(result).toEqual({
       id: 2,
-      name : "test product 2",
-      price : 252,
+      name: 'test product 2',
+      price: 252,
     });
-
-
   });
 
   it('show method should return the correct Product', async () => {
-    const result : any = await model.show('1');
+    const result: any = await model.show('1');
     expect(result).toEqual({
-        id: 1,
-        name : "test product 1",
-        price : 25,
+      id: 1,
+      name: 'test product 1',
+      price: 25,
     });
 
-    const result1 : any = await model.show('2');
+    const result1: any = await model.show('2');
     expect(result1).toEqual({
-        id: 2,
-        name : "test product 2",
-        price : 252,
+      id: 2,
+      name: 'test product 2',
+      price: 252,
     });
-
   });
-  
-
 
   it('index method should return a list of Products', async () => {
-    const result : any = await model.index();
-    expect(result).toEqual([{
+    const result: any = await model.index();
+    expect(result).toEqual([
+      {
         id: 1,
-        name : "test product 1",
-        price : 25,
-    },
-    {
+        name: 'test product 1',
+        price: 25,
+      },
+      {
         id: 2,
-        name : "test product 2",
-        price : 252,
-    }]);
+        name: 'test product 2',
+        price: 252,
+      },
+    ]);
   });
-
 });

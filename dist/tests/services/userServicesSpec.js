@@ -11,7 +11,7 @@ dotenv_1.default.config();
 const saltRounds = process.env.SALT_ROUNDS || '';
 const pepper = process.env.BCRYPT_PASSWORD || '';
 const secret = process.env.TOKEN_SECRET || '';
-describe("User Services tests", () => {
+describe('User Services tests', () => {
     it('check email should return true', () => {
         expect((0, userServices_1.check_if_email_exists)('test3@test.com')).toBeTrue;
     });
@@ -37,7 +37,7 @@ describe("User Services tests", () => {
             email: 'test2@test.com',
             password: '123456',
         };
-        expect(await (0, userServices_1.signup)(u)).toBe("Email already exist");
+        expect(await (0, userServices_1.signup)(u)).toBe('Email already exist');
     });
     it('sign up should create user and return token', async () => {
         const u = {

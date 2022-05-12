@@ -4,7 +4,11 @@ import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import { userCreationValidation } from '../validations/usersValidation';
-import { check_if_email_exists, signin, signup } from '../services/userServices';
+import {
+  check_if_email_exists,
+  signin,
+  signup,
+} from '../services/userServices';
 
 dotenv.config();
 const saltRounds: string = process.env.SALT_ROUNDS || '';
@@ -47,7 +51,6 @@ export class UsersController {
     }
     const result = await signup(u);
     res.json(result);
-
   }
 
   async delete(req: Request, res: Response) {
@@ -57,11 +60,9 @@ export class UsersController {
   }
 
   async signIn(req: Request, res: Response) {
-
     const token = await signin(req.body.email, req.body.password);
     //console.log(token);
-    if(token) return res.json(token);
+    if (token) return res.json(token);
     else return res.json('Invalid credentials');
   }
 }
- 

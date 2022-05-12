@@ -8,7 +8,6 @@ export type User = {
 };
 
 export class UserModel {
-
   async delete(): Promise<User[]> {
     try {
       const conn = await Client.connect();

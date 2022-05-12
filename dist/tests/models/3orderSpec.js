@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const order_1 = require("../../models/order");
 const orderServices_1 = require("../../services/orderServices");
 const model = new order_1.OrderModel();
-describe("Order Model tests", () => {
+describe('Order Model tests', () => {
     it('should have an index method', () => {
         expect(model.index).toBeDefined();
     });
@@ -16,13 +16,13 @@ describe("Order Model tests", () => {
     it('create method should add an Order', async () => {
         const o = {
             user_id: 1,
-            status: "active"
+            status: 'active',
         };
         const result = await model.create(o);
         expect(result).toEqual({
             id: 1,
             user_id: '1',
-            status: "active",
+            status: 'active',
         });
     });
     it('show method should return the correct Order', async () => {
@@ -30,16 +30,18 @@ describe("Order Model tests", () => {
         expect(result).toEqual({
             id: 1,
             user_id: '1',
-            status: "active",
+            status: 'active',
         });
     });
     it('index method should return a list of Orders', async () => {
         const result = await model.index();
-        expect(result).toEqual([{
+        expect(result).toEqual([
+            {
                 id: 1,
                 user_id: '1',
-                status: "active",
-            }]);
+                status: 'active',
+            },
+        ]);
     });
     it('add product method should add product to an Order', async () => {
         const result = await model.addProduct(10, '1', '1');
@@ -59,8 +61,8 @@ describe("Order Model tests", () => {
                 product_name: 'test product 1',
                 price: 25,
                 quantity: 10,
-                status: 'active'
-            }
+                status: 'active',
+            },
         ]);
     });
     it('add product method should add product to an Order', async () => {
@@ -81,7 +83,7 @@ describe("Order Model tests", () => {
                 product_name: 'test product 1',
                 price: 25,
                 quantity: 10,
-                status: 'active'
+                status: 'active',
             },
             {
                 order_id: 1,
@@ -89,8 +91,8 @@ describe("Order Model tests", () => {
                 product_name: 'test product 2',
                 price: 252,
                 quantity: 500,
-                status: 'active'
-            }
+                status: 'active',
+            },
         ]);
     });
     it('update method should return Order with completed status', async () => {
@@ -98,7 +100,7 @@ describe("Order Model tests", () => {
         expect(result).toEqual({
             id: 1,
             user_id: '1',
-            status: "completed",
+            status: 'completed',
         });
     });
     it('show method should return the Order with completed status', async () => {
@@ -106,7 +108,7 @@ describe("Order Model tests", () => {
         expect(result).toEqual({
             id: 1,
             user_id: '1',
-            status: "completed",
+            status: 'completed',
         });
     });
 });

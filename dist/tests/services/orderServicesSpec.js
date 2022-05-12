@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const orderServices_1 = require("../../services/orderServices");
-describe("Order Services tests", () => {
+describe('Order Services tests', () => {
     it('should return id of order creator', async () => {
         const result = await (0, orderServices_1.get_order_creator)('1');
         expect(result).toEqual('1');

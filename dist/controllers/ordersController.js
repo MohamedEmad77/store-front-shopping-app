@@ -50,7 +50,7 @@ class OrdersController {
         try {
             const order = await model.find_active_order_by_user(req.params.id);
             if (!order)
-                return res.json("Please be sure you have an active order");
+                return res.json('Please be sure you have an active order');
             //console.log(order);
             const id = order.id?.toString();
             const orders = await (0, orderServices_1.get_order_details)(id);
@@ -97,7 +97,7 @@ class OrdersController {
             //res.status(204);
             return res.json(error);
         }
-        return res.json("");
+        return res.json('');
     }
     async addProduct(_req, res) {
         const orderId = _req.params.id;

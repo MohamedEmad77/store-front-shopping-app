@@ -1,5 +1,36 @@
 # Storefront Backend Project
 
+SETUP INSTRUCTIONS : 
+-------------------------
+1- install node js and posgres sql batabase on your machine.
+2- in project directory run : npm install.
+3- inyour terminal run : su postgres.
+4- then run : CREATE USER postgres WITH PASSWORD 'password';
+5- then run : CREATE DATABASE store_front;
+6- then run : CREATE DATABASE store_front_test;
+7- exit from psql treminal : \q.
+8- run : db-migrate-up.
+9- run : npm run start.
+10- run : npm run test for testing
+
+------------------------------------------------
+ 
+environment variables :
+ 
+-----------------------------------------
+
+POSTGRES_HOST=127.0.0.1
+POSTGRES_DB=store_front
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=password
+POSTGRES_DB_TEST=store_front_test
+ENV=dev
+BCRYPT_PASSWORD=sore-front-nanodegree-project-mohamed-emad
+SALT_ROUNDS=10
+TOKEN_SECRET=storefrontprojectwebtoken
+
+----------------------------------------------------------------------
+
 ## Getting Started
 
 This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo and run `yarn` in your terminal at the project root.
@@ -21,7 +52,7 @@ In this repo there is a `REQUIREMENTS.md` document which outlines what this API 
 
 Your first task is to read the requirements and update the document with the following:
 - Determine the RESTful route for each endpoint listed. Add the RESTful route and HTTP verb to the document so that the frontend developer can begin to build their fetch requests.    
-**Example**: A SHOW route: 'blogs/:id' [GET] 
+**Example**: A SHOW route: 'blogs/:id' [GET]  
 
 - Design the Postgres database tables based off the data shape requirements. Add to the requirements document the database tables and columns being sure to mark foreign keys.   
 **Example**: You can format this however you like but these types of information should be provided
