@@ -16,7 +16,7 @@ if (ENV === 'dev') {
         password: POSTGRES_PASSWORD,
     });
 }
-else if (ENV === 'test') {
+else if (ENV == 'test') {
     Client = new pg_1.Pool({
         host: POSTGRES_HOST,
         database: POSTGRES_DB_TEST,

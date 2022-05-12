@@ -22,6 +22,6 @@ export const only_order_creator_can_modify = async (
     }
     next();
   } catch (error) {
-    res.json('please login first');
+    return res.json('please login first');
   }
 };

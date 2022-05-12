@@ -23,7 +23,7 @@ exports.check_if_product_and_order_exist = check_if_product_and_order_exist;
 const get_order_details = async function (order_id) {
     try {
         const conn = await database_1.default.connect();
-        const sql = 'SELECT o.id as order_id, p.name as product_name, p.price, j.quantity, o.status FROM orders o INNER JOIN orders_products j ON o.id = ($1) AND o.id = j.order_id INNER JOIN products p ON j.product_id = p.id';
+        const sql = 'SELECT o.id as order_id, p.id as product_id, p.name as product_name, p.price, j.quantity, o.status FROM orders o INNER JOIN orders_products j ON o.id = ($1) AND o.id = j.order_id INNER JOIN products p ON j.product_id = p.id';
         const result = await conn.query(sql, [order_id]);
         conn.release();
         //console.log(result.rows);

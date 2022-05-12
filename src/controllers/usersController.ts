@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import { userCreationValidation } from '../validations/usersValidation';
-import { check_if_email_exists } from '../services/userServices';
+import { check_if_email_exists, signin, signup } from '../services/userServices';
 
 dotenv.config();
 const saltRounds: string = process.env.SALT_ROUNDS || '';
@@ -45,22 +45,9 @@ export class UsersController {
       // console.log(validationError.error?.details[0].message);
       return res.json(validationError.error?.details[0].message);
     }
+    const result = await signup(u);
+    res.json(result);
 
-    if (await check_if_email_exists(u.email))
-      return res.json('Email already exist');
-
-    u.password = bcrypt.hashSync(
-      _req.body.password + pepper,
-      parseInt(saltRounds)
-    );
-    const model = new UserModel();
-    try {
-      const user = await model.create(u);
-      const token = jwt.sign({ user: user }, secret);
-      res.json(token);
-    } catch (error) {
-      res.json(error);
-    }
   }
 
   async delete(req: Request, res: Response) {
@@ -70,15 +57,11 @@ export class UsersController {
   }
 
   async signIn(req: Request, res: Response) {
-    const model = new UserModel();
-    const user = await model.find_by_email(req.body.email);
-    if (user) {
-      if (bcrypt.compareSync(req.body.password + pepper, user.password)) {
-        const token = jwt.sign({ user: user }, secret);
-        res.json(token);
-      } else res.json('Invalid credentials');
-    } else {
-      res.json('Invalid credentials');
-    }
+
+    const token = await signin(req.body.email, req.body.password);
+    //console.log(token);
+    if(token) return res.json(token);
+    else return res.json('Invalid credentials');
   }
 }
+ 

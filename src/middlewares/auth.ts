@@ -13,6 +13,6 @@ export const verifyAuthToken = (req: Request, res: Response, next: any) => {
     jwt.verify(token, secret);
     next();
   } catch (error) {
-    res.json('please login first');
+    return res.json('please login first');
   }
 };

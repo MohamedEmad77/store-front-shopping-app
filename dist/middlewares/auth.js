@@ -16,7 +16,7 @@ const verifyAuthToken = (req, res, next) => {
         next();
     }
     catch (error) {
-        res.json('please login first');
+        return res.json('please login first');
     }
 };
 exports.verifyAuthToken = verifyAuthToken;

@@ -12,21 +12,25 @@ class OrdersController {
         const model = new order_1.OrderModel();
         try {
             const orders = await model.index();
-            res.json(orders);
+            return res.json(orders);
         }
         catch (error) {
-            res.json(error);
+            //res.status(400)
+            return res.json(error);
         }
+        return;
     }
     async show(req, res) {
         const model = new order_1.OrderModel();
         try {
             const order = await model.show(req.params.id);
-            res.json(order);
+            return res.json(order);
         }
         catch (error) {
-            res.json(error);
+            //res.status(400)
+            return res.json(error);
         }
+        return;
     }
     async find_active_order_by_user(req, res) {
         const model = new order_1.OrderModel();
@@ -36,8 +40,10 @@ class OrdersController {
             return order;
         }
         catch (error) {
-            res.json(error);
+            //res.status(400)
+            return res.json(error);
         }
+        return;
     }
     async get_order_details(req, res) {
         const model = new order_1.OrderModel();
@@ -49,17 +55,20 @@ class OrdersController {
             const id = order.id?.toString();
             const orders = await (0, orderServices_1.get_order_details)(id);
             //console.log(orders);
-            res.json(orders);
+            return res.json(orders);
         }
         catch (error) {
-            res.json(error);
+            //res.status(400)
+            return res.json(error);
         }
+        return;
     }
     async create(_req, res) {
         //console.log(_req.body.user_id);
         const model = new order_1.OrderModel();
         const check = await model.find_active_order_by_user((0, userServices_1.getAuthenticatedUser)(_req, res));
         if (check) {
+            res.status(405);
             return res.json('You already have an active order');
         }
         const o = {
@@ -68,21 +77,27 @@ class OrdersController {
         };
         try {
             const order = await model.create(o);
-            res.json(order);
+            res.status(201);
+            return res.json(order);
         }
         catch (error) {
-            res.json(error);
+            //res.status(303);
+            return res.json(error);
         }
+        return;
     }
     async update(_req, res) {
         const model = new order_1.OrderModel();
         try {
             const order = await model.update(_req.params.id);
-            res.json(order);
+            res.status(200);
+            return res.json(order);
         }
         catch (error) {
-            res.json(error);
+            //res.status(204);
+            return res.json(error);
         }
+        return res.json("");
     }
     async addProduct(_req, res) {
         const orderId = _req.params.id;
@@ -90,31 +105,38 @@ class OrdersController {
         const quantity = parseInt(_req.body.quantity);
         const validationError = (0, orderValidation_1.orderValidation)(quantity);
         if (validationError.error) {
+            res.status(405);
             return res.json(validationError.error?.details[0].message);
         }
         if (!(0, genericServices_1.check_if_id_is_valid)(productId)) {
+            res.status(405);
             return res.json('please enter a valid product');
         }
         productId = Number.parseInt(productId).toString();
         if (!(await (0, productServices_1.check_if_product_exist)(productId))) {
+            res.status(405);
             return res.json('please enter a valid product');
         }
         if (await (0, orderServices_1.check_if_product_and_order_exist)(orderId, productId)) {
+            res.status(405);
             return res.json('Already Exist!!');
         }
         const model = new order_1.OrderModel();
         const order = await model.find_active_order_by_user((0, userServices_1.getAuthenticatedUser)(_req, res));
         if (order.id?.toString() != orderId) {
+            res.status(405);
             return res.json('please select an active order');
         }
         try {
             const addedProduct = await model.addProduct(quantity, orderId, productId);
-            res.json(addedProduct);
+            res.status(201);
+            return res.json(addedProduct);
         }
         catch (err) {
-            res.status(400);
-            res.json(err);
+            //res.status(400);
+            return res.json(err);
         }
+        return;
     }
 }
 exports.OrdersController = OrdersController;

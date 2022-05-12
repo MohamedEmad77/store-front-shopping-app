@@ -5,9 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const user_1 = require("../models/user");
-const bcrypt_1 = __importDefault(require("bcrypt"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const usersValidation_1 = require("../validations/usersValidation");
 const userServices_1 = require("../services/userServices");
 dotenv_1.default.config();
@@ -47,18 +45,8 @@ class UsersController {
             // console.log(validationError.error?.details[0].message);
             return res.json(validationError.error?.details[0].message);
         }
-        if (await (0, userServices_1.check_if_email_exists)(u.email))
-            return res.json('Email already exist');
-        u.password = bcrypt_1.default.hashSync(_req.body.password + pepper, parseInt(saltRounds));
-        const model = new user_1.UserModel();
-        try {
-            const user = await model.create(u);
-            const token = jsonwebtoken_1.default.sign({ user: user }, secret);
-            res.json(token);
-        }
-        catch (error) {
-            res.json(error);
-        }
+        const result = await (0, userServices_1.signup)(u);
+        res.json(result);
     }
     async delete(req, res) {
         const model = new user_1.UserModel();
@@ -66,19 +54,12 @@ class UsersController {
         res.json(users);
     }
     async signIn(req, res) {
-        const model = new user_1.UserModel();
-        const user = await model.find_by_email(req.body.email);
-        if (user) {
-            if (bcrypt_1.default.compareSync(req.body.password + pepper, user.password)) {
-                const token = jsonwebtoken_1.default.sign({ user: user }, secret);
-                res.json(token);
-            }
-            else
-                res.json('Invalid credentials');
-        }
-        else {
-            res.json('Invalid credentials');
-        }
+        const token = await (0, userServices_1.signin)(req.body.email, req.body.password);
+        //console.log(token);
+        if (token)
+            return res.json(token);
+        else
+            return res.json('Invalid credentials');
     }
 }
 exports.UsersController = UsersController;

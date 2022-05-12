@@ -6,18 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserModel = void 0;
 const database_1 = __importDefault(require("../database"));
 class UserModel {
-    async index() {
-        try {
-            const conn = await database_1.default.connect();
-            const sql = 'SELECT * FROM users';
-            const result = await conn.query(sql);
-            conn.release();
-            return result.rows;
-        }
-        catch (error) {
-            throw new Error(`Could not get users. Error: ${error}`);
-        }
-    }
     async delete() {
         try {
             const conn = await database_1.default.connect();
@@ -71,6 +59,18 @@ class UserModel {
         }
         catch (error) {
             throw new Error(`Could not create user. Error: ${error}`);
+        }
+    }
+    async index() {
+        try {
+            const conn = await database_1.default.connect();
+            const sql = 'SELECT * FROM users';
+            const result = await conn.query(sql);
+            conn.release();
+            return result.rows;
+        }
+        catch (error) {
+            throw new Error(`Could not get users. Error: ${error}`);
         }
     }
 }
