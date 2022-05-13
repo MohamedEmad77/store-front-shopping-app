@@ -43,26 +43,44 @@ export class UsersController {
       email: _req.body.email,
       password: _req.body.password,
     };
-    const validationError = userCreationValidation(u);
 
+    const validationError = userCreationValidation(u);
     if (validationError.error) {
       // console.log(validationError.error?.details[0].message);
       return res.json(validationError.error?.details[0].message);
+    }  
+    try {
+      const result = await signup(u);
+      res.json(result);
+    } catch (error) {
+      res.json(error);
     }
-    const result = await signup(u);
-    res.json(result);
+
+    
+
   }
 
   async delete(req: Request, res: Response) {
     const model = new UserModel();
-    const users = await model.delete();
-    res.json(users);
+    try {
+      const users = await model.delete();
+      res.json(users);      
+    } catch (error) {
+      res.json(error);
+    }
+
   }
 
   async signIn(req: Request, res: Response) {
-    const token = await signin(req.body.email, req.body.password);
-    //console.log(token);
-    if (token) return res.json(token);
-    else return res.json('Invalid credentials');
+
+    try {
+        const token = await signin(req.body.email, req.body.password);
+        //console.log(token);
+        if (token) return res.json(token);
+        else return res.json('Invalid credentials');
+    } catch (error) {
+      res.json(error);
+    }
+
   }
 }

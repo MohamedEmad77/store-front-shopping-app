@@ -5,13 +5,14 @@ SETUP INSTRUCTIONS :
 1- install node js and posgres sql batabase on your machine.
 2- in project directory run : npm install.
 3- inyour terminal run : su postgres.
-4- then run : CREATE USER postgres WITH PASSWORD 'password';
-5- then run : CREATE DATABASE store_front;
-6- then run : CREATE DATABASE store_front_test;
-7- exit from psql treminal : \q.
-8- run : db-migrate-up.
-9- run : npm run start.
-10- run : npm run test for testing
+4- then run : CREATE USER postgres WITH PASSWORD 'password'.
+5- Database port : 5432.
+6- then run : CREATE DATABASE store_front.
+7- then run : CREATE DATABASE store_front_test.
+8- exit from psql treminal : \q.
+9- run : db-migrate-up.
+10- run : npm run start.
+11- run : npm run test for testing.
 
 ------------------------------------------------
  

@@ -20,7 +20,7 @@ const getAuthenticatedUser = (req, res) => {
         return decoded.user.id;
     }
     catch (error) {
-        res.json('please login first');
+        throw new Error('please login first');
     }
 };
 exports.getAuthenticatedUser = getAuthenticatedUser;

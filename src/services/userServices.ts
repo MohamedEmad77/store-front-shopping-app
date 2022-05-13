@@ -16,7 +16,7 @@ export const getAuthenticatedUser = (req: Request, res: Response) => {
     const decoded: any = jwt.verify(token, secret);
     return decoded.user.id;
   } catch (error) {
-    res.json('please login first');
+    throw new Error('please login first');
   }
 };
 

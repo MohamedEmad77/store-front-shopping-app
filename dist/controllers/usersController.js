@@ -45,21 +45,36 @@ class UsersController {
             // console.log(validationError.error?.details[0].message);
             return res.json(validationError.error?.details[0].message);
         }
-        const result = await (0, userServices_1.signup)(u);
-        res.json(result);
+        try {
+            const result = await (0, userServices_1.signup)(u);
+            res.json(result);
+        }
+        catch (error) {
+            res.json(error);
+        }
     }
     async delete(req, res) {
         const model = new user_1.UserModel();
-        const users = await model.delete();
-        res.json(users);
+        try {
+            const users = await model.delete();
+            res.json(users);
+        }
+        catch (error) {
+            res.json(error);
+        }
     }
     async signIn(req, res) {
-        const token = await (0, userServices_1.signin)(req.body.email, req.body.password);
-        //console.log(token);
-        if (token)
-            return res.json(token);
-        else
-            return res.json('Invalid credentials');
+        try {
+            const token = await (0, userServices_1.signin)(req.body.email, req.body.password);
+            //console.log(token);
+            if (token)
+                return res.json(token);
+            else
+                return res.json('Invalid credentials');
+        }
+        catch (error) {
+            res.json(error);
+        }
     }
 }
 exports.UsersController = UsersController;

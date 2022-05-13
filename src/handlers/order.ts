@@ -16,10 +16,14 @@ const order_routes = (app: expres.Application) => {
   );
   app.post(
     '/orders/:id/products',
-    only_order_creator_can_modify,
+    [verifyAuthToken, only_order_creator_can_modify],
     controller.addProduct
   );
-  app.put('/orders/:id', only_order_creator_can_modify, controller.update);
+  app.put(
+    '/orders/:id',
+    [verifyAuthToken, only_order_creator_can_modify],
+    controller.update
+  );
 };
 
 export default order_routes;

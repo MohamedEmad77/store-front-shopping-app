@@ -47,10 +47,8 @@ describe('orders endpoint testing', () => {
         const response = await request.post('/orders');
         expect(response.status).toEqual(200);
     });
-    // it('update order status route response staus is 200', async () => {
-    //   const response = await request.put(
-    //     '/orders/1'
-    //   );
-    //   expect(response.status).toEqual(200);
-    // });
+    it('update order status route response staus is 200', async () => {
+        const response = await request.put('/orders/1');
+        expect(response.status).toEqual(200);
+    });
 });

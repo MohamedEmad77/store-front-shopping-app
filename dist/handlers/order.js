@@ -10,7 +10,7 @@ const order_routes = (app) => {
     app.get('/orders/:id', auth_1.verifyAuthToken, controller.show);
     app.get('/orders/users/:id', auth_1.verifyAuthToken, controller.get_order_details);
     app.get('/orders/users/:id/active', auth_1.verifyAuthToken, controller.find_active_order_by_user);
-    app.post('/orders/:id/products', permissions_1.only_order_creator_can_modify, controller.addProduct);
-    app.put('/orders/:id', permissions_1.only_order_creator_can_modify, controller.update);
+    app.post('/orders/:id/products', [auth_1.verifyAuthToken, permissions_1.only_order_creator_can_modify], controller.addProduct);
+    app.put('/orders/:id', [auth_1.verifyAuthToken, permissions_1.only_order_creator_can_modify], controller.update);
 };
 exports.default = order_routes;
